@@ -3,9 +3,6 @@ import DataContext from "../contexts/DataContext";
 import { Button, Grid } from "@material-ui/core";
 import "../styles/result.css";
 import RoomIcon from "@material-ui/icons/Room";
-import { makeStyles, Paper, ButtonBase, Typography } from "@material-ui/core";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/styles";
 
 const styles = (theme) => ({
   card: {

@@ -7,11 +7,6 @@ const containerStyle = {
   height: "100%",
 };
 
-const center = {
-  lat: 6.93197,
-  lng: 79.85775,
-};
-
 const options = {
   disableDefaultUI: true,
 };

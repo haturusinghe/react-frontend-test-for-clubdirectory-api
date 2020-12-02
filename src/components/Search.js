@@ -1,22 +1,14 @@
 import React, { Component } from "react";
 import DataContext from "../contexts/DataContext";
 import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+
 import InputAdornment from "@material-ui/core/InputAdornment";
-import FormControl from "@material-ui/core/FormControl";
+
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
+
 import SearchIcon from "@material-ui/icons/Search";
-import clsx from "clsx";
 
 import IconButton from "@material-ui/core/IconButton";
-
-import FilledInput from "@material-ui/core/FilledInput";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-
-import FormHelperText from "@material-ui/core/FormHelperText";
 
 import ClearIcon from "@material-ui/icons/Clear";
 
