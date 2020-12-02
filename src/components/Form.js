@@ -120,9 +120,7 @@ export default function Form() {
               onChange={handleChange("location")}
               startAdornment={
                 <InputAdornment position="start">
-                  <IconButton>
-                    <RoomIcon />
-                  </IconButton>
+                  <RoomIcon />
                 </InputAdornment>
               }
               endAdornment={
