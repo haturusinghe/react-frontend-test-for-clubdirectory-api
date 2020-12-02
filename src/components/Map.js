@@ -1,5 +1,5 @@
-import React from "react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import React, { useContext } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import DataContext from "../contexts/DataContext";
 
 const containerStyle = {
@@ -7,20 +7,15 @@ const containerStyle = {
   height: "100%",
 };
 
-const center = {
-  lat: 6.93197,
-  lng: 79.85775,
-};
-
-const options = {
-  disableDefaultUI: true,
-};
-
 function MyComponent() {
+  const context = useContext(DataContext);
   const [map, setMap] = React.useState(null);
+  const center = context.center;
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
+    console.log(bounds);
+    console.log(context.center);
     map.fitBounds(bounds);
     setMap(map);
   }, []);
@@ -37,9 +32,11 @@ function MyComponent() {
         zoom={12}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        options={options}
       >
         {/* Child components, such as markers, info windows, etc. */}
+        {context.markers.map((marker, index) => {
+          return <Marker position={marker} key={index} />;
+        })}
         <></>
       </GoogleMap>
     </LoadScript>

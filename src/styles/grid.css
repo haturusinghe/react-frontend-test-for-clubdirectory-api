@@ -1,6 +1,6 @@
 .main-grid-container {
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 25% 75%;
   grid-template-rows: 50vh 50vh;
   gap: 0px 0px;
   grid-template-areas:
@@ -8,13 +8,21 @@
     "search results";
 }
 .search {
+  padding: 20px;
   background-color: #edeeef;
   grid-area: search;
+  overflow: scroll;
 }
+
 .map {
   grid-area: map;
 }
 .results {
   background-color: aliceblue;
   grid-area: results;
+  overflow: scroll;
+}
+
+.inputLabelStyle {
+  font-weight: 100 !important;
 }
