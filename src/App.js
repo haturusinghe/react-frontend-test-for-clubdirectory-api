@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import MapX from "./components/MapComp";
+import React, { useState } from "react";
+import DataProvider from "./contexts/DataProvider";
+import Search from "./components/Search";
+import "./styles/grid.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DataProvider>
+      <div className="main-grid-container">
+        <div className="search">
+          <Search />
+        </div>
+        <div className="map">
+          <MapX />
+        </div>
+        <div className="results"></div>
+      </div>
+    </DataProvider>
   );
 }
 
