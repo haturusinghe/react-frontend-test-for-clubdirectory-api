@@ -4,17 +4,6 @@ import { Button, Grid } from "@material-ui/core";
 import "../styles/result.css";
 import RoomIcon from "@material-ui/icons/Room";
 
-const styles = (theme) => ({
-  card: {
-    margin: "auto",
-    marginTop: "10px",
-    width: "50%",
-    backgroundColor: "grey",
-    padding: "20px",
-  },
-  icon: { fontSize: "50" },
-});
-
 class ResultTable extends Component {
   constructor(props) {
     super(props);
