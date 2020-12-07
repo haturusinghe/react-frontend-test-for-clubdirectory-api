@@ -48,7 +48,7 @@ class DataProvider extends Component {
    *
    */
   fetchSearchResults = (updatedPageNo = "", values) => {
-    const { name, location, latt, long, meetingDay, meetingLanguage } = values;
+    const { name, latt, long, meetingDay, meetingLanguage } = values;
     let queryString = `name=${name}`;
     if (latt && long) {
       queryString = queryString + `&latt=${latt}&long=${long}`;

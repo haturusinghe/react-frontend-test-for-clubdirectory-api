@@ -11,7 +11,7 @@ const options = {
   disableDefaultUI: true,
 };
 
-var mapBody = {};
+//var mapBody = {};
 
 class MyMap extends Component {
   componentWillUpdate() {
