@@ -42,16 +42,27 @@ class DataProvider extends Component {
   /**
    * Fetch the search results and update the state with the result.
    *
+   * //https://rest-clubs.herokuapp.com/filter?name=${name}&meetingDay=${meetingDay}&meetingLanguage=${meetingLanguage}&latt=${latt}&long=${long}
    * @param {int} updatedPageNo Updated Page No.
    * @param {String} query Search Query.
    *
    */
-  fetchSearchResults = (updatedPageNo = "", query) => {
+  fetchSearchResults = (updatedPageNo = "", values) => {
+    const { name, location, latt, long, meetingDay, meetingLanguage } = values;
+    let queryString = `name=${name}`;
+    if (latt && long) {
+      queryString = queryString + `&latt=${latt}&long=${long}`;
+    }
+    if (meetingDay !== "") {
+      queryString = queryString + `&meetingDay=${meetingDay}`;
+    }
+    if (meetingLanguage !== "") {
+      queryString = queryString + `&meetingLanguage=${meetingLanguage}`;
+    }
     const markerHolder = [];
+    console.log(queryString);
     axios
-      .get(
-        `https://cors-anywhere.herokuapp.com/https://rest-clubs.herokuapp.com/list?name=${query}`
-      )
+      .get(`https://rest-clubs.herokuapp.com/filter?${queryString}`)
       .then((res) => {
         res.data.forEach((item, index) => {
           markerHolder.push({
