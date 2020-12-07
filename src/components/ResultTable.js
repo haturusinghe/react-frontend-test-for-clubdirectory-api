@@ -28,10 +28,10 @@ class ResultTable extends Component {
         direction="row"
         justify="center"
         alignItems="center"
-        style={{ margin: "10px", backgroundColor: "grey" }}
+        style={{ margin: "10px", backgroundColor: "white" }}
       >
         <Grid item xs={12} style={{ margin: 10 }}>
-          {this.props.result.name}
+          <h1 style={{ textAlign: "center" }}>{this.props.result.name}</h1>
         </Grid>
         <Grid
           item
