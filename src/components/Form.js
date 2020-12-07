@@ -12,6 +12,15 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { Typography, Select, MenuItem, Button } from "@material-ui/core";
 import DataContext from "../contexts/DataContext";
 
+const initialFValues = {
+  name: "",
+  location: "",
+  latt: null,
+  long: null,
+  meetingDay: "",
+  meetingLanguage: "",
+};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -48,13 +57,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Form() {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
-    query: null,
-    location: null,
-    date: null,
-    language: null,
-  });
+  const classes = useStyles(initialFValues);
+  const [values, setValues] = React.useState(initialFValues);
 
   const dataContext = useContext(DataContext);
 
@@ -64,15 +68,15 @@ export default function Form() {
 
   const formSubmit = (event) => {
     console.log(values);
-    dataContext.search(1, values.query);
+    dataContext.search(1, values.name);
   };
 
   const clearInput = (prop) => (event) => {
-    setValues({ [prop]: "" });
+    setValues({ ...values, [prop]: "" });
   };
 
   const resetForm = () => (event) => {
-    setValues({ query: "", location: "", date: "", language: "" });
+    setValues(initialFValues);
   };
 
   return (
@@ -88,8 +92,8 @@ export default function Form() {
           <InputLabel htmlFor="search-name">Search</InputLabel>
           <OutlinedInput
             id="search-name"
-            value={values.query}
-            onChange={handleChange("query")}
+            value={values.name}
+            onChange={handleChange("name")}
             startAdornment={
               <InputAdornment position="start">
                 <SearchIcon />
@@ -97,7 +101,7 @@ export default function Form() {
             }
             endAdornment={
               <InputAdornment position="end">
-                <IconButton onClick={clearInput("query")}>
+                <IconButton onClick={clearInput("name")}>
                   <ClearIcon />
                 </IconButton>
               </InputAdornment>
@@ -125,7 +129,7 @@ export default function Form() {
               }
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton onClick={clearInput("query")}>
+                  <IconButton onClick={clearInput("location")}>
                     <ClearIcon />
                   </IconButton>
                 </InputAdornment>
@@ -142,12 +146,14 @@ export default function Form() {
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"
-              value={values.date}
-              onChange={handleChange("date")}
+              value={values.meetingDay}
+              onChange={handleChange("meetingDay")}
             >
-              <MenuItem value={"monday"}>Monday</MenuItem>
-              <MenuItem value={"tuesday"}>Tuesday</MenuItem>
-              <MenuItem value={"wednesday"}>Wednesday</MenuItem>
+              <MenuItem value={"Monday"}>Monday</MenuItem>
+              <MenuItem value={"Tuesday"}>Tuesday</MenuItem>
+              <MenuItem value={"Wednesday"}>Wednesday</MenuItem>
+              <MenuItem value={"Thursday"}>Thursday</MenuItem>
+              <MenuItem value={"Friday"}>Friday</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -159,12 +165,12 @@ export default function Form() {
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"
-              value={values.language}
-              onChange={handleChange("language")}
+              value={values.meetingLanguage}
+              onChange={handleChange("meetingLanguage")}
             >
-              <MenuItem value={"sinhala"}>Sinhalese</MenuItem>
-              <MenuItem value={"english"}>English</MenuItem>
-              <MenuItem value={"tamil"}>Tamil</MenuItem>
+              <MenuItem value={"Sinhalese"}>Sinhalese</MenuItem>
+              <MenuItem value={"English"}>English</MenuItem>
+              <MenuItem value={"Tamil"}>Tamil</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -185,7 +191,7 @@ export default function Form() {
           color="primary"
           size="small"
           className={classes.button}
-          onClick={(event) => resetForm()}
+          onClick={resetForm()}
           startIcon={<DeleteIcon />}
         >
           Reset
