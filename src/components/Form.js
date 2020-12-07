@@ -66,9 +66,8 @@ export default function Form() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const formSubmit = (event) => {
-    console.log(values);
-    dataContext.search(1, values.name);
+  const formSubmit = () => (event) => {
+    dataContext.search(1, values);
   };
 
   const clearInput = (prop) => (event) => {
@@ -76,6 +75,7 @@ export default function Form() {
   };
 
   const resetForm = () => (event) => {
+    console.log(values);
     setValues(initialFValues);
   };
 
@@ -116,11 +116,16 @@ export default function Form() {
           Filter By
         </Typography>
         <div>
-          <FormControl fullWidth className={classes.margin} variant="outlined">
+          <FormControl
+            fullWidth
+            className={classes.margin}
+            variant="outlined"
+            disabled
+          >
             <InputLabel htmlFor="search-location">Location</InputLabel>
             <OutlinedInput
               id="search-location"
-              value={values.location}
+              value="Disabled"
               onChange={handleChange("location")}
               startAdornment={
                 <InputAdornment position="start">
@@ -129,7 +134,7 @@ export default function Form() {
               }
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton onClick={clearInput("location")}>
+                  <IconButton onClick={clearInput("location")} disabled>
                     <ClearIcon />
                   </IconButton>
                 </InputAdornment>
@@ -182,7 +187,7 @@ export default function Form() {
           size="small"
           className={classes.button}
           startIcon={<SearchIcon />}
-          onClick={(event) => formSubmit()}
+          onClick={formSubmit()}
         >
           Search
         </Button>
