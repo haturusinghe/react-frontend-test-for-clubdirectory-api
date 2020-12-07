@@ -26,11 +26,11 @@ class MyMap extends Component {
           center={this.context.center}
           zoom={12}
           onCenterChanged={() => {
-            console.log(mapBody);
+            console.log("map center changed");
           }}
           onLoad={(map) => {
-            mapBody = map;
-            console.log(mapBody);
+            //console.log(mapBody);
+            console.log("map loaded");
           }}
           options={options}
         >
