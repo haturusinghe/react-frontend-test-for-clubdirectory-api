@@ -1,17 +1,26 @@
 .main-grid-container {
   display: grid;
   grid-template-columns: 25% 75%;
-  grid-template-rows: 50vh 50vh;
+  grid-template-rows: 50vh 50vh 4vh;
   gap: 0px 0px;
   grid-template-areas:
     "search map"
-    "search results";
+    "search results"
+    "footer footer";
 }
 .search {
   padding: 20px;
   background-color: #edeeef;
   grid-area: search;
   overflow: scroll;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: footer;
+  background-color: #edeeef;
 }
 
 .map {
