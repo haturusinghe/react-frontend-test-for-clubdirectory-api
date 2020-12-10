@@ -30,7 +30,7 @@ class Results extends Component {
           borderColor: "#E7EDF3",
         }}
       >
-        {this.context.data.length == 0 ? (
+        {this.context.data.length === 0 ? (
           <Grid container direction="row" justify="center" alignItems="stretch">
             <Typography
               variant="h4"
