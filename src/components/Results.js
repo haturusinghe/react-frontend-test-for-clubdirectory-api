@@ -38,7 +38,7 @@ class Results extends Component {
               className="inputLabelStyle"
               style={{ padding: "5px", marginTop: 0 }}
             >
-              Please provide at least one search parameter
+              No results available for the given search parameters
             </Typography>
           </Grid>
         ) : (
