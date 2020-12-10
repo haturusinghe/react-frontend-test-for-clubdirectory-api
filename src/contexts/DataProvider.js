@@ -14,23 +14,35 @@ class DataProvider extends Component {
       x: 0,
       y: 0,
       loading: true,
+      mapLoaded: false,
       markers: [],
       data: [],
       center: { lat: 6.93197, lng: 79.85775 },
       update: this.updateState,
+      nearby: this.showNearby,
       search: this.fetchSearchResults,
       logHello: this.logHello,
       changeCenter: this.changeCenter,
+      updateMapLoad: this.updateMapLoad,
     };
   }
 
   // Call `this.context.update({ key: value })` from a consumer
   // to update this state.
+  showNearby(values) {
+    console.log(values);
+    this.fetchSearchResults(1, values);
+  }
+
   updateState(values) {
     this.setState({ center: values });
   }
 
-  logHello(message) {
+  updateMapLoad = (values) => {
+    this.setState({ mapLoaded: values });
+  };
+
+  logHello(message, values) {
     console.log(message);
   }
 
@@ -48,7 +60,13 @@ class DataProvider extends Component {
    *
    */
   fetchSearchResults = (updatedPageNo = "", values) => {
-    const { name, latt, long, meetingDay, meetingLanguage } = values;
+    const {
+      name = "",
+      latt,
+      long,
+      meetingDay = "",
+      meetingLanguage = "",
+    } = values;
     let queryString = `name=${name}`;
     if (latt && long) {
       queryString = queryString + `&latt=${latt}&long=${long}`;
@@ -59,6 +77,35 @@ class DataProvider extends Component {
     if (meetingLanguage !== "") {
       queryString = queryString + `&meetingLanguage=${meetingLanguage}`;
     }
+    const markerHolder = [];
+    console.log(queryString);
+    axios
+      .get(`https://rest-clubs.herokuapp.com/filter?${queryString}`)
+      .then((res) => {
+        res.data.forEach((item, index) => {
+          markerHolder.push({
+            lat: item.location.coordinates[1],
+            lng: item.location.coordinates[0],
+          });
+        });
+        this.setState({
+          data: res.data,
+          center: markerHolder[0],
+          loading: false,
+          markers: markerHolder,
+        });
+      })
+      .catch((error) => {
+        if (axios.isCancel(error) || error) {
+          this.setState({ loading: false });
+        }
+      });
+    this.createMarkers();
+  };
+
+  fetchNearby = (updatedPageNo = "", long, latt) => {
+    let queryString = `latt=${latt}&long=${long}`;
+
     const markerHolder = [];
     console.log(queryString);
     axios

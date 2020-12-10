@@ -7,19 +7,25 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import SearchIcon from "@material-ui/icons/Search";
 import DeleteIcon from "@material-ui/icons/Delete";
-import RoomIcon from "@material-ui/icons/Room";
 import ClearIcon from "@material-ui/icons/Clear";
-import { Typography, Select, MenuItem, Button } from "@material-ui/core";
+import { Typography, Select, MenuItem, Button, Paper } from "@material-ui/core";
 import DataContext from "../contexts/DataContext";
+
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 
 const initialFValues = {
   name: "",
-  location: "",
+  location: {},
   latt: null,
   long: null,
   meetingDay: "",
   meetingLanguage: "",
 };
+
+const initialMap = "";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,11 +60,17 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  paper: {
+    marginLeft: theme.spacing(1),
+    position: "absolute",
+    zIndex: 5000,
+  },
 }));
 
 export default function Form() {
   const classes = useStyles(initialFValues);
   const [values, setValues] = React.useState(initialFValues);
+  const [location, setLocation] = React.useState(initialMap);
 
   const dataContext = useContext(DataContext);
 
@@ -67,6 +79,8 @@ export default function Form() {
   };
 
   const formSubmit = () => (event) => {
+    console.log(values);
+    console.log(dataContext.mapLoaded);
     dataContext.search(1, values);
   };
 
@@ -75,8 +89,27 @@ export default function Form() {
   };
 
   const resetForm = () => (event) => {
-    console.log(values);
+    console.log(location);
+    setLocation(initialMap);
     setValues(initialFValues);
+    console.log(location);
+  };
+
+  const handleLocChange = (address) => {
+    setLocation(address);
+  };
+
+  const handleSelect = (address) => {
+    console.log("hello");
+    handleLocChange(address);
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => {
+        const { lat, lng } = latLng;
+        setValues({ ...values, latt: lat, long: lng });
+        console.log("Success", latLng);
+      })
+      .catch((error) => console.error("Error", error));
   };
 
   return (
@@ -115,34 +148,61 @@ export default function Form() {
         <Typography variant="h6" gutterBottom className="inputLabelStyle">
           Filter By
         </Typography>
-        <div>
-          <FormControl
-            fullWidth
-            className={classes.margin}
-            variant="outlined"
-            disabled
-          >
-            <InputLabel htmlFor="search-location">Location</InputLabel>
-            <OutlinedInput
-              id="search-location"
-              value="Disabled"
-              onChange={handleChange("location")}
-              startAdornment={
-                <InputAdornment position="start">
-                  <RoomIcon />
-                </InputAdornment>
-              }
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton onClick={clearInput("location")} disabled>
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={60}
-            />
-          </FormControl>
-        </div>
+        {dataContext.mapLoaded ? (
+          <div>
+            <PlacesAutocomplete
+              value={location}
+              onChange={(address) => handleLocChange(address)}
+              onSelect={handleSelect}
+            >
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <div>
+                  <FormControl
+                    fullWidth
+                    variant="outlined"
+                    className={classes.margin}
+                  >
+                    <InputLabel htmlFor="search-location">Location</InputLabel>
+
+                    <OutlinedInput
+                      {...getInputProps({
+                        placeholder: "Search Places ...",
+                        className: "location-search-input",
+                        labelWidth: 60,
+                      })}
+                    />
+                  </FormControl>
+                  <Paper elevation={3} className={classes.paper}>
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map((suggestion) => {
+                      const className = suggestion.active
+                        ? "suggestion-item--active"
+                        : "suggestion-item";
+                      // inline style for demonstration purpose
+
+                      return (
+                        <MenuItem
+                          {...getSuggestionItemProps(suggestion, {
+                            className,
+                          })}
+                        >
+                          {suggestion.description}
+                        </MenuItem>
+                      );
+                    })}
+                  </Paper>
+                </div>
+              )}
+            </PlacesAutocomplete>
+          </div>
+        ) : (
+          <div>Map Loading</div>
+        )}
         <div>
           <FormControl variant="filled" className={classes.formControl}>
             <InputLabel id="demo-simple-select-filled-label">

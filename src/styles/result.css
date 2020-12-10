@@ -16,3 +16,17 @@
 .details {
   grid-area: details;
 }
+
+.results-boii {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fieldcell {
+  margin: 3px 0 3px 0;
+}
+
+.wh {
+  color: aliceblue;
+}

@@ -11,6 +11,8 @@ const options = {
   disableDefaultUI: true,
 };
 
+const libraries = ["places"];
+
 //var mapBody = {};
 
 class MyMap extends Component {
