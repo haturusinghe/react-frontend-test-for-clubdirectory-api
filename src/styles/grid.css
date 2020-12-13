@@ -2,7 +2,7 @@
   .main-grid-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 5vh;
+    grid-template-rows: 100vh 75vh 75vh 5vh;
     gap: 0px 0px;
     grid-template-areas:
       "search"
