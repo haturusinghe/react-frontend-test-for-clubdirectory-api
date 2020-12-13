@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DataContext from "../contexts/DataContext";
 import { Button, Grid, ButtonGroup, Typography } from "@material-ui/core";
+
 import "../styles/result.css";
 
 class ResultTable extends Component {
@@ -38,7 +39,7 @@ class ResultTable extends Component {
         alignItems="stretch"
         style={{
           margin: "15px",
-          width: "50%",
+
           backgroundColor: "white",
           border: "2px solid",
           borderColor: "#E7EDF3",
@@ -73,7 +74,8 @@ class ResultTable extends Component {
             direction="column"
             justify="center"
             alignItems="flex-start"
-            xs={6}
+            xs={12}
+            sm={6}
             style={{
               backgroundColor: "white",
 
@@ -100,7 +102,8 @@ class ResultTable extends Component {
           <Grid
             container
             direction="column"
-            xs={6}
+            xs={12}
+            sm={6}
             style={{
               backgroundColor: "#333333",
               border: "2px solid",
