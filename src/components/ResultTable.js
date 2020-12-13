@@ -39,7 +39,7 @@ class ResultTable extends Component {
         alignItems="stretch"
         style={{
           margin: "15px",
-
+          width: "95%",
           backgroundColor: "white",
           border: "2px solid",
           borderColor: "#E7EDF3",
