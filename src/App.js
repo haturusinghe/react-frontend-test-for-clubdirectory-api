@@ -29,8 +29,8 @@ function App() {
             className="inputLabelStyle"
             style={{ padding: "5px", marginTop: 0 }}
           >
-            Made with 🤍 by{" "}
-            <a href="https://github.com/haturusinghe/">haturusinghe</a>
+            Made by <a href="https://github.com/haturusinghe/">haturusinghe</a>{" "}
+            🎉
           </Typography>
         </div>
       </div>
